@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{B2C3D4E5-2222-4333-9444-555566667777}</ProjectGuid>
     <AssemblyName>Thaumiel.CustomTeamsAPI</AssemblyName>
@@ -58,8 +58,10 @@
     <Reference Include="Mirror" Publicize="true" HintPath="$(SL_REFERENCES)/Mirror.dll" />
     <Reference Include="NorthwoodLib" Publicize="true" HintPath="$(SL_REFERENCES)/NorthwoodLib.dll" />
     <Reference Include="YamlDotNet" HintPath="$(SL_REFERENCES)/YamlDotNet.dll" />
+	<Reference Include="CommandSystem.Core" HintPath="$(SL_REFERENCES)/CommandSystem.Core.dll" />
 
-    <!--System-->
+
+	  <!--System-->
     <Reference Include="System" />
     <Reference Include="System.Core" />
 
@@ -70,6 +72,6 @@
 
   <Target Name="PostBuildCopy" AfterTargets="Build" Condition="'$(OS)' == 'Windows_NT'">
     <Message Text="Copying CustomTeamsAPI to dependencies folder..." Importance="high" />
-    <Copy SourceFiles="$(OutputPath)Thaumiel.CustomTeamsAPI.dll;" DestinationFolder="$(APPDATA)\SCP Secret Laboratory\LabAPI\dependencies\global" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(OutputPath)Thaumiel.CustomTeamsAPI.dll;" DestinationFolder="$(APPDATA)\SCP Secret Laboratory\LabAPI\plugins\global" SkipUnchangedFiles="true" />
   </Target>
 </Project>
