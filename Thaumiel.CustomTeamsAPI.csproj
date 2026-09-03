@@ -1,0 +1,75 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProjectGuid>{B2C3D4E5-2222-4333-9444-555566667777}</ProjectGuid>
+    <AssemblyName>Thaumiel.CustomTeamsAPI</AssemblyName>
+    <RootNamespace>Thaumiel</RootNamespace>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>14</LangVersion>
+    <Deterministic>true</Deterministic>
+    <FileAlignment>512</FileAlignment>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <NoWarn>CS8602;CS8632;CS1591</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Configuration>Debug</Configuration>
+    <Platform>AnyCPU</Platform>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>embedded</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Configuration>Release</Configuration>
+    <Platform>AnyCPU</Platform>
+    <DebugType>embedded</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Thaumiel.CustomRolesAPI\Thaumiel.CustomRolesAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3" />
+    <PackageReference Include="Northwood.LabAPI" Version="1.1.6.1" Publicize="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--3rd Party Dependencies-->
+    <Reference Include="CustomItemsAPI" HintPath="..\Thaumiel\deps\CustomItemsAPI.dll" Publicize="true" />
+    <Reference Include="LabApiExtensions" HintPath="..\Thaumiel\deps\LabApiExtensions.dll" Publicize="true" />
+
+    <!--SL Dependencies-->
+    <Reference Include="Assembly-CSharp" Publicize="true" HintPath="$(SL_REFERENCES)/Assembly-CSharp.dll" />
+    <Reference Include="Assembly-CSharp-firstpass" Publicize="true" HintPath="$(SL_REFERENCES)/Assembly-CSharp-firstpass.dll" />
+    <Reference Include="Mirror" Publicize="true" HintPath="$(SL_REFERENCES)/Mirror.dll" />
+    <Reference Include="NorthwoodLib" Publicize="true" HintPath="$(SL_REFERENCES)/NorthwoodLib.dll" />
+    <Reference Include="YamlDotNet" HintPath="$(SL_REFERENCES)/YamlDotNet.dll" />
+
+    <!--System-->
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+
+    <!--Unity-->
+    <Reference Include="UnityEngine" HintPath="$(SL_REFERENCES)/UnityEngine.dll" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(SL_REFERENCES)/UnityEngine.CoreModule.dll" />
+  </ItemGroup>
+
+  <Target Name="PostBuildCopy" AfterTargets="Build" Condition="'$(OS)' == 'Windows_NT'">
+    <Message Text="Copying CustomTeamsAPI to dependencies folder..." Importance="high" />
+    <Copy SourceFiles="$(OutputPath)Thaumiel.CustomTeamsAPI.dll;" DestinationFolder="$(APPDATA)\SCP Secret Laboratory\LabAPI\dependencies\global" SkipUnchangedFiles="true" />
+  </Target>
+</Project>
